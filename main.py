@@ -77,6 +77,11 @@ async def liveness():
     """Liveness probe: confirms the server is up."""
     return {"status": "ok"}
 
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    """Favicon handler to prevent 404 noise."""
+    return Response(status_code=204)
+
 @app.get("/readyz")
 async def readiness():
     """Readiness probe: confirms models are loaded and ready for inference."""
