@@ -111,7 +111,7 @@ async def extract_outfit_api(image: UploadFile = File(...)):
     
     content = await image.read()
     if len(content) > settings.MAX_IMAGE_SIZE_MB * 1024 * 1024:
-        raise HTTPError(status_code=400, detail=f"File too large (max {settings.MAX_IMAGE_SIZE_MB}MB)")
+        raise HTTPException(status_code=400, detail=f"File too large (max {settings.MAX_IMAGE_SIZE_MB}MB)")
 
     try:
         result = pipeline.extract_outfit(content)

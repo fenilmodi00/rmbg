@@ -23,15 +23,13 @@ RUN pip install -r requirements.txt
 # Pre-download and cache models in a specific directory
 # We set HF_HOME to ensure the runner finds them in the exact same spot.
 ENV HF_HOME=/app/.cache/huggingface
-RUN python -c " \
-import torch; \
+RUN python -c "import torch; \
 from transformers import SegformerImageProcessor, SegformerForSemanticSegmentation, AutoModelForImageSegmentation; \
 print('Pre-downloading SegFormer...'); \
 SegformerImageProcessor.from_pretrained('sayeed99/segformer_b3_clothes'); \
 SegformerForSemanticSegmentation.from_pretrained('sayeed99/segformer_b3_clothes'); \
 print('Pre-downloading BiRefNet-lite...'); \
-AutoModelForImageSegmentation.from_pretrained('ZhengPeng7/BiRefNet_lite', trust_remote_code=True); \
-"
+AutoModelForImageSegmentation.from_pretrained('ZhengPeng7/BiRefNet_lite', trust_remote_code=True);"
 
 # --- STAGE 2: Runner ---
 FROM python:3.11-slim AS runner
