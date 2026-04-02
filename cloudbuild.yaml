@@ -1,0 +1,29 @@
+steps:
+  # 1. Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/outfit-extractor', '.']
+  
+  # 2. Push image to GCR
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/outfit-extractor']
+    
+  # 3. Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    args: [
+      'gcloud', 'run', 'deploy', 'outfit-extractor',
+      '--image', 'gcr.io/$PROJECT_ID/outfit-extractor',
+      '--region', 'us-central1',
+      '--platform', 'managed',
+      '--memory', '2Gi',
+      '--cpu', '2',
+      '--timeout', '120',
+      '--concurrency', '1',
+      '--min-instances', '0',
+      '--max-instances', '10',
+      '--allow-unauthenticated'
+    ]
+
+images:
+  - 'gcr.io/$PROJECT_ID/outfit-extractor'
+
+timeout: '1200s'

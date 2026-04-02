@@ -1,0 +1,30 @@
+# Git and system
+.git/
+.gitignore
+.dockerignore
+LICENSE
+README.md
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+.pytest_cache/
+tests/
+
+# Project Artifacts
+*.png
+*.jpeg
+*.jpg
+*.avif
+.env
+.env.example
+
+# Terraform / GCP temp
+.terraform/
+.gcloud/
+cloudbuild.yaml
